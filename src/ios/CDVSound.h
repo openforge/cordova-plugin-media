@@ -17,6 +17,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioServices.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
 #import <Cordova/CDVPlugin.h>

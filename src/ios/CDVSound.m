@@ -372,6 +372,13 @@ BOOL keepAvAudioSessionAlwaysActive = NO;
 
                 NSString* sessionCategory = bPlayAudioWhenScreenIsLocked ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient;
                 [self.avSession setCategory:sessionCategory error:&err];
+
+                UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
+    
+                [self.avSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&err];
+                audioRouteOverride = kAudioSessionProperty_OverrideCategoryDefaultToSpeaker;
+                AudioSessionSetProperty(kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+
                 if (![self.avSession setActive:YES error:&err]) {
                     // other audio with higher priority that does not allow mixing could cause this to fail
                     NSLog(@"Unable to play audio: %@", [err localizedFailureReason]);
